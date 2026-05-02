@@ -20,14 +20,25 @@ CardMark Sticker Generator — статическое одностранично
 
 Откройте файл `index.html` в браузере. Сервер и сборка не нужны.
 
+Для минимальной проверки проекта можно запустить:
+
+```bash
+npm run check
+```
+
+Эта команда не собирает приложение и не добавляет обязательных зависимостей. Подробности — в [docs/CHECKS.md](docs/CHECKS.md).
+
 Если браузер блокирует CDN для PDF-экспорта, остальные функции продолжают работать. Для PDF используйте кнопку «Печать / PDF» и сохранение через системный диалог печати.
 
 ## GitHub Pages
 
 1. Откройте настройки репозитория на GitHub.
 2. Перейдите в **Settings → Pages**.
-3. В Source выберите ветку `main` и папку `/root`.
-4. После публикации приложение будет доступно по адресу:
+3. В Source выберите **Deploy from a branch**.
+4. В Branch выберите `main`.
+5. В Folder выберите `/root`.
+6. Нажмите **Save**.
+7. После публикации откройте опубликованный URL:
    `https://kostgame.github.io/cardmark-sticker-generator/`.
 
 ## Как пользоваться генератором
@@ -80,6 +91,7 @@ CardMark v0 является прототипным форматом и може
 - [AGENTS.md](AGENTS.md) — рабочий регламент для Codex и будущих агентов.
 - [docs/PROJECT_BRIEF.md](docs/PROJECT_BRIEF.md) — продуктовый контекст проекта.
 - [docs/CARDMARK_SPEC.md](docs/CARDMARK_SPEC.md) — спецификация текущего CardMark v0.
+- [docs/CHECKS.md](docs/CHECKS.md) — локальные и ручные проверки проекта.
 - [docs/ROADMAP.md](docs/ROADMAP.md) — план развития по PR и будущим этапам.
 - [docs/DECISIONS.md](docs/DECISIONS.md) — журнал существенных решений.
 - [docs/PR_REPORT_TEMPLATE.md](docs/PR_REPORT_TEMPLATE.md) — обязательный шаблон отчёта по PR.
@@ -89,6 +101,7 @@ CardMark v0 является прототипным форматом и може
 - `AGENTS.md`
 - `docs/PROJECT_BRIEF.md`
 - `docs/CARDMARK_SPEC.md`
+- `docs/CHECKS.md`
 - `docs/ROADMAP.md`
 - `docs/DECISIONS.md`
 - `docs/PR_REPORT_TEMPLATE.md`
