@@ -2,8 +2,6 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on Keep a Changelog, and this project follows semantic versioning once releases begin.
-
 ## [Unreleased]
 
 ### Added
@@ -13,3 +11,4 @@ The format is based on Keep a Changelog, and this project follows semantic versi
 - Presets for Tarot 78, playing cards 36, playing cards 54 and custom card lists.
 - SVG, optional PDF, browser print and JSON manifest export.
 - Project documentation, Apache-2.0 license and agent instructions.
+- Project governance docs in docs/.
