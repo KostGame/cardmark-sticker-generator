@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CardMark Sticker Generator</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script defer src="src/presets.js"></script>
+    <script defer src="src/cardmark.js"></script>
+    <script defer src="src/export.js"></script>
+    <script defer src="src/app.js"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">CardMark v0</p>
+        <h1>Генератор стикеров CardMark</h1>
+        <p class="lead">Статический генератор печатных листов с машинно-читаемыми метками для карт и Таро.</p>
+      </div>
+      <div class="header-badge">Без сервера, OCR и внешних API</div>
+    </header>
+
+    <div class="app-layout">
+      <aside class="controls" aria-label="Панель настроек">
+        <section class="control-section">
+          <h2>Набор</h2>
+          <label>
+            Тип колоды
+            <select id="deckType">
+              <option value="tarot78">Таро 78</option>
+              <option value="playing36">Игральные 36</option>
+              <option value="playing54">Игральные 54</option>
+              <option value="custom">Кастомный набор</option>
+            </select>
+          </label>
+
+          <label class="check-row">
+            <input id="testSheetMode" type="checkbox">
+            <span>Тестовый лист</span>
+          </label>
+
+          <label id="customDeckField" class="custom-deck-field">
+            Кастомный список
+            <textarea id="customCards" rows="8" spellcheck="false">000;Старшие;Шут
+001;Старшие;Маг</textarea>
+            <span class="hint">Формат строки: ID;Группа;Название</span>
+          </label>
+        </section>
+
+        <section class="control-section">
+          <h2>Метка</h2>
+          <div class="two-columns">
+            <label>
+              Размер
+              <select id="markerSize">
+                <option value="6">6 мм</option>
+                <option value="8" selected>8 мм</option>
+                <option value="10">10 мм</option>
+                <option value="12">12 мм</option>
+                <option value="custom">Свой</option>
+              </select>
+            </label>
+            <label id="customSizeField">
+              Свой, мм
+              <input id="customSize" type="number" min="4" max="24" step="0.5" value="8">
+            </label>
+          </div>
+
+          <label>
+            Цветовой режим
+            <select id="colorMode">
+              <option value="dark-on-light">Чёрная метка на светлом фоне</option>
+              <option value="light-on-dark">Белая метка на тёмном фоне</option>
+              <option value="economy">Экономичная печать</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="control-section">
+          <h2>Лист</h2>
+          <label>
+            Формат
+            <select id="pageFormat">
+              <option value="a4-portrait">A4 portrait</option>
+              <option value="a4-landscape">A4 landscape</option>
+              <option value="letter-portrait">Letter portrait</option>
+              <option value="letter-landscape">Letter landscape</option>
+            </select>
+          </label>
+
+          <div class="two-columns">
+            <label>
+              Поля, мм
+              <input id="pageMargin" type="number" min="0" max="40" step="1" value="10">
+            </label>
+            <label>
+              Зазор, мм
+              <input id="itemGap" type="number" min="0" max="20" step="1" value="4">
+            </label>
+          </div>
+
+          <label>
+            Режим печати
+            <select id="printMode">
+              <option value="home">Домашний</option>
+              <option value="production">Производственный</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="control-section">
+          <h2>Подложка</h2>
+          <div class="checkbox-grid">
+            <label class="check-row"><input id="showName" type="checkbox" checked><span>Название карты</span></label>
+            <label class="check-row"><input id="showId" type="checkbox" checked><span>ID</span></label>
+            <label class="check-row"><input id="showGroup" type="checkbox" checked><span>Группа/масть</span></label>
+            <label class="check-row"><input id="showArrow" type="checkbox" checked><span>Стрелка верх</span></label>
+            <label class="check-row"><input id="showCheckbox" type="checkbox" checked><span>Чекбокс</span></label>
+            <label class="check-row"><input id="showCutLines" type="checkbox" checked><span>Линии реза</span></label>
+            <label class="check-row"><input id="showStickerBounds" type="checkbox" checked><span>Границы наклейки</span></label>
+            <label class="check-row"><input id="breakSections" type="checkbox" checked><span>Разбивать по секциям</span></label>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <h2>Дополнительно</h2>
+          <label>
+            Запасные метки
+            <select id="spareCount">
+              <option value="0">0</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+            </select>
+          </label>
+          <label class="check-row">
+            <input id="addTestMarker" type="checkbox">
+            <span>Добавить тестовую метку</span>
+          </label>
+        </section>
+
+        <section class="control-section export-section">
+          <h2>Экспорт</h2>
+          <div class="export-bar">
+            <button id="downloadSvg" type="button">Скачать SVG</button>
+            <button id="downloadPdf" type="button">Скачать PDF</button>
+            <button id="printSheet" type="button">Печать / PDF</button>
+            <button id="downloadJson" type="button">Скачать JSON</button>
+          </div>
+          <p id="statusLine" class="status-line" role="status"></p>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <div class="preview-toolbar">
+          <div>
+            <p class="eyebrow">Предпросмотр</p>
+            <h2 id="previewTitle">Печатный лист</h2>
+          </div>
+          <p id="previewMeta" class="preview-meta"></p>
+        </div>
+        <div id="warningList" class="warning-list" aria-live="polite"></div>
+        <div id="sheetPreview" class="preview-frame" aria-label="Предпросмотр печатных листов"></div>
+
+        <section class="info-panel" aria-label="Справка">
+          <h2>Справка</h2>
+          <div class="info-grid">
+            <article>
+              <h3>Что такое CardMark</h3>
+              <p>CardMark — это маленькая векторная метка, которую можно распознать по геометрии без ИИ, OCR, внешних API и серверной обработки.</p>
+            </article>
+            <article>
+              <h3>Как клеить</h3>
+              <ol>
+                <li>Разложите колоду по порядку.</li>
+                <li>Выберите нужный пресет.</li>
+                <li>Распечатайте лист стикеров.</li>
+                <li>Берите наклейки по порядку.</li>
+                <li>Клейте метку в верхний левый угол лицевой стороны карты.</li>
+                <li>Стрелка «верх» должна смотреть к верхнему краю карты.</li>
+                <li>После наклейки отметьте чекбокс на листе.</li>
+                <li>Для Таро лучше использовать протекторы, чтобы не портить карты.</li>
+              </ol>
+            </article>
+            <article>
+              <h3>Почему текст на подложке</h3>
+              <p>После отделения наклейки на карте остаются только метка и маленький ориентир верха. Название, ID, группа и чекбокс остаются на бумажной подложке как рабочая инструкция.</p>
+            </article>
+            <article>
+              <h3>JSON-манифест</h3>
+              <p>JSON связывает ID метки с названием карты. Будущее приложение распознавания сможет найти CardMark на фото, определить ID и сопоставить его с этим манифестом.</p>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
