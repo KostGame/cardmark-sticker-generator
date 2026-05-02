@@ -46,4 +46,6 @@ This file is the main working protocol for Codex and future agents working on Ca
 - Keep PRs focused.
 - Do not add unrelated user-facing functionality while doing documentation, governance or process work.
 - Before committing, verify that `README.md`, `CHANGELOG.md`, `AGENTS.md` and relevant `docs/*` files are consistent with the change.
+- Before opening or updating a PR, run available project checks such as `npm run check`.
+- If a check was not run, state that clearly in the PR report with the reason.
 - If code changes are included, explain why they were necessary in the PR report.

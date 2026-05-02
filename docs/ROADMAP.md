@@ -10,12 +10,13 @@
 - Базовая документация.
 - Governance baseline: проектные документы, журнал решений, спецификация CardMark v0, roadmap и шаблон отчёта.
 
-## PR-001: Stabilization and checks after initial merge
+## PR-001: Stabilization and GitHub Pages publishing
 
 - Проверка и утверждение governance baseline после initial merge.
-- Минимальные проверки перед снятием Draft-статуса будущих PR.
+- Минимальные локальные проверки без build step.
+- GitHub Pages publishing guidance.
+- Проверка относительных путей и Pages-ready структуры.
 - Правила изменения CardMark v0 без изменения самого формата.
-- Уточнение критериев review, merge и release.
 - Проверка ссылок, Markdown и документационных обязательств.
 
 ## PR-002: Print layout quality pass
