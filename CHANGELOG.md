@@ -12,3 +12,6 @@ All notable changes to this project will be documented in this file.
 - SVG, optional PDF, browser print and JSON manifest export.
 - Project documentation, Apache-2.0 license and agent instructions.
 - Project governance docs in docs/.
+
+### Changed
+- Clarified the roadmap so PR-001 is stabilization after the PR-000 governance baseline, not a repeat of document creation.

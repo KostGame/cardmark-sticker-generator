@@ -8,15 +8,15 @@
 - CardMark v0.
 - SVG/PDF/печать/JSON export.
 - Базовая документация.
-- Базовые проектные документы и журнал решений.
+- Governance baseline: проектные документы, журнал решений, спецификация CardMark v0, roadmap и шаблон отчёта.
 
-## PR-001: Governance and stabilization
+## PR-001: Stabilization and checks after initial merge
 
-- Проектные документы.
-- Журнал решений.
-- Шаблон отчёта.
-- Уточнение CardMark v0.
-- Правила изменения формата.
+- Проверка и утверждение governance baseline после initial merge.
+- Минимальные проверки перед снятием Draft-статуса будущих PR.
+- Правила изменения CardMark v0 без изменения самого формата.
+- Уточнение критериев review, merge и release.
+- Проверка ссылок, Markdown и документационных обязательств.
 
 ## PR-002: Print layout quality pass
 
