@@ -280,9 +280,19 @@ textarea {
   border: 0.15mm dashed #c6cbd3;
 }
 
-.sheet-card-production {
+.sheet-card-plotter,
+.sheet-card-control {
   border-style: solid;
   border-color: #d1d5db;
+}
+
+.sheet-card-compact,
+.sheet-card-duplex {
+  border-color: #e5e7eb;
+}
+
+.sheet-card-scissors {
+  border: 0.25mm dashed #111111;
 }
 
 .sheet-card.no-cut-lines {
@@ -291,7 +301,6 @@ textarea {
 
 .sticker-zone {
   position: absolute;
-  left: 0;
   border: 0.18mm solid #333333;
 }
 
@@ -336,8 +345,22 @@ textarea {
   line-height: 1.15;
 }
 
-.sheet-card-home .paper-label {
+.sheet-card-control .paper-label,
+.sheet-card-scissors .paper-label {
   font-size: 2.45mm;
+}
+
+.sheet-card-compact .paper-label,
+.sheet-card-duplex .paper-label,
+.sheet-card-plotter .paper-label {
+  font-size: 1.65mm;
+  gap: 0.25mm;
+}
+
+.label-on-back {
+  align-items: center;
+  padding: 0.8mm;
+  border: 0.15mm solid #d1d5db;
 }
 
 .paper-label strong {
@@ -360,6 +383,74 @@ textarea {
   width: 3mm;
   height: 3mm;
   border: 0.25mm solid #111111;
+}
+
+.paper-checkbox.tiny {
+  width: 2mm;
+  height: 2mm;
+  align-self: center;
+}
+
+.cut-line,
+.safe-area,
+.sticker-boundary {
+  position: absolute;
+  pointer-events: none;
+}
+
+.cut-line {
+  inset: 0;
+  border: 0.15mm dashed #8a8f98;
+}
+
+.sheet-card-scissors .cut-line {
+  border: 0.25mm dashed #111111;
+}
+
+.safe-area {
+  inset: 1mm;
+  border: 0.12mm dotted #7aa7d9;
+}
+
+.sticker-boundary {
+  border: 0.16mm solid #111111;
+}
+
+.registration-mark {
+  position: absolute;
+  width: 5mm;
+  height: 5mm;
+  transform: translate(-50%, -50%);
+}
+
+.registration-mark::before,
+.registration-mark::after {
+  content: "";
+  position: absolute;
+  background: #111111;
+}
+
+.registration-mark::before {
+  left: 0;
+  top: 2.35mm;
+  width: 5mm;
+  height: 0.3mm;
+}
+
+.registration-mark::after {
+  left: 2.35mm;
+  top: 0;
+  width: 0.3mm;
+  height: 5mm;
+}
+
+.page-side-label {
+  position: absolute;
+  left: 5mm;
+  bottom: 4mm;
+  color: #6b7280;
+  font-size: 2.4mm;
+  font-weight: 700;
 }
 
 .top-arrow {

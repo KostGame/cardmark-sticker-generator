@@ -19,12 +19,12 @@
 - Правила изменения CardMark v0 без изменения самого формата.
 - Проверка ссылок, Markdown и документационных обязательств.
 
-## PR-002: Print layout quality pass
+## PR-002: Print layout modes and duplex sheets
 
-- Проверка реальных размеров в миллиметрах.
-- Улучшение PDF/print поведения.
-- Тестовые листы.
-- Режимы для домашней и производственной печати.
+- Контрольный, компактный, двусторонний, домашний и плоттерный режимы.
+- Front/back страницы для двусторонней печати.
+- Registration marks, cut lines, safe area и SVG layer classes.
+- Проверки SVG/JSON/CardMark regressions для новых режимов.
 
 ## PR-003: CardMark validation and test fixtures
 

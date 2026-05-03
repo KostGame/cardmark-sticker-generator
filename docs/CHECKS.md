@@ -53,6 +53,22 @@ The check script has no external dependencies. It verifies:
 4. Open the downloaded `cardmark-stickers.svg`.
 5. Confirm that the sheet contains CardMark markers and backing-sheet labels.
 
+Repeat SVG export for these print modes:
+
+- `Контрольный односторонний`;
+- `Компактный односторонний`;
+- `Двусторонний` with front, back and both sides;
+- `Домашняя резка ножницами`;
+- `Плоттерная резка`.
+
+For plotter mode, inspect the SVG for layer classes:
+
+- `layer-markers`;
+- `layer-cut-lines`;
+- `layer-backing-labels`;
+- `layer-registration-marks`;
+- `layer-page-labels`.
+
 ## Check JSON Export
 
 1. Open `index.html`.
@@ -69,6 +85,51 @@ The check script has no external dependencies. It verifies:
 4. Confirm that the printable sheet uses real page dimensions and visible markers.
 
 The `Скачать PDF` button depends on the optional `jsPDF` CDN. If the CDN is blocked or unavailable, browser printing remains the required fallback.
+
+## Check Print Layout Modes
+
+### Compact
+
+1. Select `Компактный односторонний`.
+2. Confirm that cells are denser than the control layout.
+3. Confirm that labels are short and do not create a large side panel.
+
+### Duplex Front
+
+1. Select `Двусторонний`.
+2. Set side to `Лицевая сторона с метками`.
+3. Confirm that the sheet shows markers, top cues, cut/sticker boundaries and registration marks.
+
+### Duplex Back
+
+1. Select `Двусторонний`.
+2. Set side to `Оборотная сторона с подписями`.
+3. Confirm that the sheet shows labels on matching positions and includes `BACK / оборотная сторона`.
+
+### Duplex Both
+
+1. Select `Двусторонний`.
+2. Set side to `Обе стороны`.
+3. Confirm that pages alternate front/back.
+4. Print a test on ordinary paper before using sticker stock.
+
+### Scissors
+
+1. Select `Домашняя резка ножницами`.
+2. Confirm visible dashed cut lines and larger cut allowance.
+3. Confirm labels remain readable.
+
+### Plotter
+
+1. Select `Плоттерная резка`.
+2. Confirm registration marks, cut lines and safe area are visible.
+3. Export SVG and inspect layer classes.
+
+## Regression Checks
+
+- JSON export format must remain unchanged.
+- CardMark v0 logical matrix and `markerId` range must remain unchanged.
+- `npm run check` or `npm.cmd run check` must pass before PR review.
 
 ## Not Automated Yet
 

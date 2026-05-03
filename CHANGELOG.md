@@ -14,6 +14,10 @@ All notable changes to this project will be documented in this file.
 - Project governance docs in docs/.
 - GitHub Pages publishing guidance.
 - Local project checks.
+- Print layout modes for control, compact, duplex, scissors and plotter workflows.
+- Duplex front/back sheet rendering with registration marks.
+- SVG layer classes for markers, cut lines, backing labels, registration marks and page labels.
 
 ### Changed
 - Clarified the roadmap so PR-001 is stabilization after the PR-000 governance baseline, not a repeat of document creation.
+- Print layout generation now supports denser cells, cut bleed and mode-specific label placement.
