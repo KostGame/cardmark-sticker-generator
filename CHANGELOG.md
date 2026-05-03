@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- Nothing yet.
+
+### Changed
+- Nothing yet.
+
+### Fixed
+- Nothing yet.
+
+## [0.1.0] - 2026-05-04
+
+### Added
 - Initial static CardMark Sticker Generator application.
 - Russian UI for deck presets, sticker settings, page layout, preview, print and export.
 - CardMark v0 deterministic 7x7 SVG marker format with marker IDs from 0 to 127.
