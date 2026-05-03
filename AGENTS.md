@@ -20,6 +20,8 @@ This file is the main working protocol for Codex and future agents working on Ca
 - The application UI must stay in Russian.
 - The printable sheet must remain suitable for PDF/browser printing.
 - When in doubt, choose a simple static solution.
+- Do not start or implement the recognition application in this repository.
+- Recognition work belongs in a separate `card-reader` repository.
 
 ## Documentation Discipline
 
@@ -41,6 +43,12 @@ This file is the main working protocol for Codex and future agents working on Ca
 - Human-readable information belongs on the backing sheet.
 - Do not change CardMark v0 without a new entry in `docs/DECISIONS.md` and an update to `docs/CARDMARK_SPEC.md`.
 - Do not change CardMark v0 only to support print layout changes; keep layout behavior separate from marker encoding.
+
+## Recognition App Boundary
+
+- `cardmark-sticker-generator` is only for generating printable sticker sheets and JSON manifests.
+- Do not add camera access, image analysis, marker detection, orientation detection or card recognition here.
+- If a task asks for recognition behavior, confirm that it should be done in the separate `card-reader` repository.
 
 ## Pull Request Hygiene
 
