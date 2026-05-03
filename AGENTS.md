@@ -40,6 +40,7 @@ This file is the main working protocol for Codex and future agents working on Ca
 - The sticker itself should contain only the machine-readable mark and a small top cue.
 - Human-readable information belongs on the backing sheet.
 - Do not change CardMark v0 without a new entry in `docs/DECISIONS.md` and an update to `docs/CARDMARK_SPEC.md`.
+- Do not change CardMark v0 only to support print layout changes; keep layout behavior separate from marker encoding.
 
 ## Pull Request Hygiene
 
@@ -49,3 +50,4 @@ This file is the main working protocol for Codex and future agents working on Ca
 - Before opening or updating a PR, run available project checks such as `npm run check`.
 - If a check was not run, state that clearly in the PR report with the reason.
 - If code changes are included, explain why they were necessary in the PR report.
+- When changing print layout behavior, update `docs/CHECKS.md` with manual checks for affected modes.

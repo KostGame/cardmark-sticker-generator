@@ -34,6 +34,13 @@ function loadBrowserScripts(files) {
       revokeObjectURL() {}
     },
     document: {
+      addEventListener() {},
+      getElementById() {
+        return null;
+      },
+      head: {
+        appendChild() {}
+      },
       createElement() {
         return {
           click() {},
@@ -144,7 +151,20 @@ function checkManifestShape(context) {
 
 function checkSvgExport(context) {
   const card = context.CardMarkPresets.decks.tarot78.makeCards()[0];
-  const payload = {
+  const payload = makeExportPayload(context, 'control', 'single', card);
+
+  const svg = context.CardMarkExporter._buildSvg(payload);
+  assert(svg.includes('<svg'), 'SVG export helper must return an SVG document.');
+  assert(svg.includes('data-page="1"'), 'SVG export must include page marker.');
+  assert(svg.includes('layer-markers'), 'SVG export must include marker layer.');
+  assert(svg.includes('Шут'), 'SVG export must include card label.');
+}
+
+function makeExportPayload(context, layoutMode, side, card) {
+  const mode = context.CardMarkApp.PRINT_LAYOUT_MODES[layoutMode];
+  assert(mode, `Missing layout mode: ${layoutMode}`);
+
+  return {
     settings: {
       pageWidthMm: 210,
       pageHeightMm: 297,
@@ -154,9 +174,20 @@ function checkSvgExport(context) {
       itemHeightMm: 19,
       maxMarkerSizeMm: 8,
       markerSizeMm: 8,
+      effectivePaddingMm: 1,
+      effectiveCutBleedMm: layoutMode === 'scissors' ? 2 : 0,
       colorMode: 'dark-on-light',
+      layoutMode,
+      layoutLabel: mode.label,
+      labelPlacement: mode.labelPlacement,
+      duplexEnabled: layoutMode === 'duplex',
+      duplexFlip: 'long',
+      duplexMirror: 'auto',
       showCutLines: true,
       showStickerBounds: true,
+      showSafeArea: true,
+      showRegistrationMarks: true,
+      showBackingLabels: true,
       showCheckbox: true,
       showId: true,
       showName: true,
@@ -165,6 +196,7 @@ function checkSvgExport(context) {
     },
     pages: [
       {
+        side,
         nodes: [
           {
             type: 'card',
@@ -176,21 +208,42 @@ function checkSvgExport(context) {
       }
     ]
   };
+}
 
-  const svg = context.CardMarkExporter._buildSvg(payload);
-  assert(svg.includes('<svg'), 'SVG export helper must return an SVG document.');
-  assert(svg.includes('data-page="1"'), 'SVG export must include page marker.');
-  assert(svg.includes('Шут'), 'SVG export must include card label.');
+function checkLayoutModes(context) {
+  const expectedModes = ['control', 'compact', 'duplex', 'scissors', 'plotter'];
+  const modes = context.CardMarkApp.PRINT_LAYOUT_MODES;
+  const card = context.CardMarkPresets.decks.tarot78.makeCards()[0];
+
+  expectedModes.forEach((mode) => {
+    assert(modes[mode], `Layout mode must be available: ${mode}`);
+    const side = mode === 'duplex' ? 'front' : 'single';
+    const svg = context.CardMarkExporter._buildSvg(makeExportPayload(context, mode, side, card));
+    assert(svg.includes('<svg'), `${mode} SVG must build.`);
+  });
+
+  const duplexFront = context.CardMarkExporter._buildSvg(makeExportPayload(context, 'duplex', 'front', card));
+  const duplexBack = context.CardMarkExporter._buildSvg(makeExportPayload(context, 'duplex', 'back', card));
+  assert(duplexFront.includes('FRONT /'), 'Duplex front SVG must include front page label.');
+  assert(duplexBack.includes('BACK /'), 'Duplex back SVG must include back page label.');
+  assert(!duplexFront.includes('ID '), 'Duplex front SVG must not include human-readable labels.');
+  assert(duplexBack.includes('ID '), 'Duplex back SVG must include human-readable labels.');
+
+  const plotter = context.CardMarkExporter._buildSvg(makeExportPayload(context, 'plotter', 'single', card));
+  ['layer-markers', 'layer-cut-lines', 'layer-backing-labels', 'layer-registration-marks', 'layer-page-labels'].forEach((layer) => {
+    assert(plotter.includes(layer), `Plotter SVG must include ${layer}.`);
+  });
 }
 
 checkFilesExist();
 checkScriptSyntax();
 checkRelativeAssets();
 
-const context = loadBrowserScripts(['src/cardmark.js', 'src/presets.js', 'src/export.js']);
+const context = loadBrowserScripts(['src/cardmark.js', 'src/presets.js', 'src/export.js', 'src/app.js']);
 checkDeckPresets(context);
 checkCardMark(context);
 checkManifestShape(context);
 checkSvgExport(context);
+checkLayoutModes(context);
 
 console.log('CardMark project checks passed.');

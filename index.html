@@ -103,10 +103,88 @@
           <label>
             Режим печати
             <select id="printMode">
-              <option value="home">Домашний</option>
-              <option value="production">Производственный</option>
+              <option value="control">Контрольный односторонний</option>
+              <option value="compact">Компактный односторонний</option>
+              <option value="duplex">Двусторонний</option>
+              <option value="scissors">Домашняя резка ножницами</option>
+              <option value="plotter">Плоттерная резка</option>
             </select>
           </label>
+
+          <label>
+            Автоуплотнение
+            <select id="densityMode">
+              <option value="off">Выключено</option>
+              <option value="normal" selected>Обычное</option>
+              <option value="tight">Плотное</option>
+              <option value="maximum">Максимальное</option>
+            </select>
+          </label>
+
+          <div class="two-columns">
+            <label>
+              Ячейка W, мм
+              <input id="cellWidthMm" type="number" min="0" max="80" step="0.5" value="0">
+              <span class="hint">0 = auto</span>
+            </label>
+            <label>
+              Ячейка H, мм
+              <input id="cellHeightMm" type="number" min="0" max="80" step="0.5" value="0">
+              <span class="hint">0 = auto</span>
+            </label>
+          </div>
+
+          <div class="two-columns">
+            <label>
+              Мин. зазор, мм
+              <input id="minGapMm" type="number" min="0" max="20" step="0.5" value="2">
+            </label>
+            <label>
+              Padding, мм
+              <input id="cellPaddingMm" type="number" min="0" max="10" step="0.5" value="1">
+            </label>
+          </div>
+
+          <div class="two-columns">
+            <label>
+              Припуск, мм
+              <input id="cutBleedMm" type="number" min="0" max="10" step="0.5" value="2">
+            </label>
+            <label>
+              Двусторонняя печать
+              <select id="duplexEnabled">
+                <option value="off">Выключена</option>
+                <option value="on">Включена</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            Сторона
+            <select id="duplexSide">
+              <option value="front">Лицевая сторона с метками</option>
+              <option value="back">Оборотная сторона с подписями</option>
+              <option value="both" selected>Обе стороны</option>
+            </select>
+          </label>
+
+          <div class="two-columns">
+            <label>
+              Переворот
+              <select id="duplexFlip">
+                <option value="long">По длинной стороне</option>
+                <option value="short">По короткой стороне</option>
+              </select>
+            </label>
+            <label>
+              Зеркалить оборот
+              <select id="duplexMirror">
+                <option value="auto">Auto</option>
+                <option value="on">Включено</option>
+                <option value="off">Выключено</option>
+              </select>
+            </label>
+          </div>
         </section>
 
         <section class="control-section">
@@ -119,6 +197,9 @@
             <label class="check-row"><input id="showCheckbox" type="checkbox" checked><span>Чекбокс</span></label>
             <label class="check-row"><input id="showCutLines" type="checkbox" checked><span>Линии реза</span></label>
             <label class="check-row"><input id="showStickerBounds" type="checkbox" checked><span>Границы наклейки</span></label>
+            <label class="check-row"><input id="showSafeArea" type="checkbox" checked><span>Safe area</span></label>
+            <label class="check-row"><input id="showRegistrationMarks" type="checkbox" checked><span>Registration marks</span></label>
+            <label class="check-row"><input id="showBackingLabels" type="checkbox" checked><span>Подписи на подложке</span></label>
             <label class="check-row"><input id="breakSections" type="checkbox" checked><span>Разбивать по секциям</span></label>
           </div>
         </section>
