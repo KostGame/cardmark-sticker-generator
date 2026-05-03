@@ -24,3 +24,4 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - Duplex front sheets no longer render human-readable backing labels.
+- Production page now cache-busts static CSS and JavaScript assets after PR-002.

@@ -78,9 +78,10 @@ function checkScriptSyntax() {
 
 function checkRelativeAssets() {
   const html = fs.readFileSync('index.html', 'utf8');
-  assert(html.includes('href="styles/main.css"'), 'index.html must reference styles/main.css relatively.');
+  assert(/href="styles\/main\.css(?:\?[^"]*)?"/.test(html), 'index.html must reference styles/main.css relatively.');
   ['src/presets.js', 'src/cardmark.js', 'src/export.js', 'src/app.js'].forEach((file) => {
-    assert(html.includes(`src="${file}"`), `index.html must reference ${file} relatively.`);
+    const escaped = file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace('/', '\\/');
+    assert(new RegExp(`src="${escaped}(?:\\\\?[^"]*)?"`).test(html), `index.html must reference ${file} relatively.`);
   });
 }
 
