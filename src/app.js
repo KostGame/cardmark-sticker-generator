@@ -577,7 +577,7 @@
         '</div>'
       );
     }
-    if ((frontOnly && settings.labelPlacement !== 'none' && settings.showBackingLabels) || labelOnly) {
+    if ((side === 'single' && settings.labelPlacement !== 'none' && settings.showBackingLabels) || labelOnly) {
       var labelClass = labelOnly ? 'paper-label label-on-back' : 'paper-label';
       var labelStyle = settings.labelPlacement === 'side' && !labelOnly
         ? 'left:' + labelOffset + 'mm'

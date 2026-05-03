@@ -21,3 +21,6 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Clarified the roadmap so PR-001 is stabilization after the PR-000 governance baseline, not a repeat of document creation.
 - Print layout generation now supports denser cells, cut bleed and mode-specific label placement.
+
+### Fixed
+- Duplex front sheets no longer render human-readable backing labels.

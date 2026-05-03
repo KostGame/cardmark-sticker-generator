@@ -148,7 +148,7 @@
       parts.markers.push(drawMarkerSvg(card.markerId, markerX, markerY, markerSize, settings.colorMode));
     }
 
-    if ((frontOnly && settings.labelPlacement !== 'none' && settings.showBackingLabels) || labelOnly) {
+    if ((side === 'single' && settings.labelPlacement !== 'none' && settings.showBackingLabels) || labelOnly) {
       if (labelOnly) {
         parts.labels.push('<rect class="backing-label-boundary" x="' + x.toFixed(3) + '" y="' + y.toFixed(3) + '" width="' + settings.itemWidthMm.toFixed(3) + '" height="' + settings.itemHeightMm.toFixed(3) + '" fill="none" stroke="#d1d5db" stroke-width="0.15"/>');
         textY = y + 3;
@@ -319,7 +319,7 @@
       drawMarkerPdf(doc, card.markerId, markerX, markerY, markerSize, settings.colorMode);
     }
 
-    if (settings.labelPlacement === 'none' && !labelOnly) {
+    if (side === 'front' || (settings.labelPlacement === 'none' && !labelOnly)) {
       return;
     }
 

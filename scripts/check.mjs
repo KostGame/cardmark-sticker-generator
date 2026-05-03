@@ -226,6 +226,8 @@ function checkLayoutModes(context) {
   const duplexBack = context.CardMarkExporter._buildSvg(makeExportPayload(context, 'duplex', 'back', card));
   assert(duplexFront.includes('FRONT /'), 'Duplex front SVG must include front page label.');
   assert(duplexBack.includes('BACK /'), 'Duplex back SVG must include back page label.');
+  assert(!duplexFront.includes('ID '), 'Duplex front SVG must not include human-readable labels.');
+  assert(duplexBack.includes('ID '), 'Duplex back SVG must include human-readable labels.');
 
   const plotter = context.CardMarkExporter._buildSvg(makeExportPayload(context, 'plotter', 'single', card));
   ['layer-markers', 'layer-cut-lines', 'layer-backing-labels', 'layer-registration-marks', 'layer-page-labels'].forEach((layer) => {
