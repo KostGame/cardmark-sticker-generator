@@ -5,9 +5,24 @@ This file is the main working protocol for Codex and future agents working on Ca
 ## Before Starting Any Task
 
 - Read `README.md`, `AGENTS.md` and every file in `docs/` before making changes.
-- Confirm the current branch, PR context and working tree state.
+- Confirm the current task/Issue or explicit user request, repository identity, PR context and working tree state.
 - Prefer the smallest static change that satisfies the task.
-- Do not start a new PR or branch unless the user explicitly asks for it.
+
+## Codex-native workspace baseline
+
+- Default implementation workspace is a Codex-managed isolated worktree when Codex provides one.
+- A per-task fresh clone is not required. Fresh clone is a provisioning, recovery, or explicit task-specific operation.
+- Before mutation, prove expected repository/origin, task scope, expected base when supplied, Git worktree membership, and that the current directory is the assigned worktree rather than the canonical checkout.
+- Detached HEAD is valid for inspection, editing, testing, and review.
+- Before the first commit, create or switch to the approved dedicated task branch. Default prefix is `agent/` unless the current task specifies another approved branch convention.
+- Never implement directly in `main`, the primary/user/canonical checkout, a control repository, another task workspace, or an ambiguous clone.
+- Codex performs ordinary local Git mechanics itself. Branch creation, commits, push and PR creation are permitted when required by the current task/repository workflow or explicitly authorized by the user.
+- If the Codex sandbox blocks an exact Git metadata mutation, use native approval/escalation for that exact operation. Do not widen ACLs, run Codex elevated, make `.git` broadly writable, or switch to AgentLoop Owner Toolkit merely to bypass the sandbox.
+- Do not use stash, reset, clean, force push, or history rewrite to hide unexpected workspace state.
+- Never push directly to `main`.
+- PRs are Ready for Review by default unless the task explicitly requires Draft.
+- Merge authority is separate and requires repository/task policy or explicit user authorization.
+- If repository/worktree/base/task identity cannot be proven, stop fail-closed.
 
 ## Project Rules
 
@@ -55,7 +70,7 @@ This file is the main working protocol for Codex and future agents working on Ca
 - Keep PRs focused.
 - Do not add unrelated user-facing functionality while doing documentation, governance or process work.
 - Before committing, verify that `README.md`, `CHANGELOG.md`, `AGENTS.md` and relevant `docs/*` files are consistent with the change.
-- Before opening or updating a PR, run available project checks such as `npm run check`.
+- Before opening or updating a PR, run available project checks such as `npm run check` and `git diff --check`.
 - If a check was not run, state that clearly in the PR report with the reason.
 - If code changes are included, explain why they were necessary in the PR report.
 - When changing print layout behavior, update `docs/CHECKS.md` with manual checks for affected modes.
